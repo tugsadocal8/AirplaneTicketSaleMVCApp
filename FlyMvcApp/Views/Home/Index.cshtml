@@ -1,0 +1,369 @@
+﻿@model IEnumerable<FlyMvcApp.Models.Sefer>
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucak Bileti</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="https://kit.fontawesome.com/d7dd4d6052.js" crossorigin="anonymous"></script>
+
+    <style>
+        .jumbotron {
+            background-image: url(../img/img4.jpg);
+            background-size: cover;
+            background-position: 20% 10%;
+            margin-bottom: 0rem;
+            margin-top: 0rem;
+        }
+    </style>
+</head>
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"  style="font-family: 'Rubik', sans-serif;">
+
+        <div class="container">
+
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Bilet Ara</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">Seferler</a>
+                </li>
+            </ul>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <h5 style="margin-top:8px;"><a href="#" class="badge badge-warning mr-md-4">@User.Identity.Name</a></h5>
+                    </li>
+                    <li>
+                        <h5 style="margin-top:8px;"><a href="/Account/Logout" class="badge badge-danger my-2 my-md-0">Çıkış</a></h5>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/Account/Register" class="btn btn-outline-light mr-sm-2">Üye Ol</a></li>
+                    <li><a href="/Account/Login" class="btn btn-outline-light my-2 my-sm-0">Giriş</a></li>
+                </ul>
+            }
+        </div>
+    </nav>
+
+
+
+    @using (Html.BeginForm("FiltreSonuc", "Home", FormMethod.Post))
+    {
+        <div id="home" class="jumbotron text-white" style="padding-bottom: 270px; padding-top: 220px;">
+            <div class="container-md" style="max-width: 840px;">
+                <div class="form-group" id="form_nereden">
+                    <div class="clearfix mt-4">
+
+                        <div class="w-50 float-left">
+                            <div class="form-group" style="font-family: 'Rubik', sans-serif;">
+
+                                <label for="name" class="text-dark">Nereden</label>
+                                @Html.DropDownList("Nereden",
+                                     new List<SelectListItem> {
+                                                        new SelectListItem {
+                                                           Text="İstanbul"
+                                                           
+                                                           // Disabled = true  disable olarak gelsin istersek kullanıyoruz
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="İstanbul SAW",
+                                                           Selected = true
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Ankara",
+
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Adana",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Erzincan",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Kayseri",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Antalya",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Dalaman",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Paris",
+
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Stuttgart",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Amsterdam",
+                                                        },
+
+                                     }, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="w-50 float-left pl-2">
+
+                            <div class="form-group" style="font-family: 'Rubik', sans-serif;">
+                                <label for="name" class="text-dark">Nereye</label>
+                                @Html.DropDownList("Nereye",
+                                     new List<SelectListItem> {
+                                                        new SelectListItem {
+                                                           Text="İstanbul",
+                                                           //Selected = true
+                                                           // Disabled = true  disable olarak gelsin istersek kullanıyoruz
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="İstanbul SAW",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Ankara",
+                                                           Selected = true
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Adana",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Erzincan",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Kayseri",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Antalya",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Dalaman",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Paris",
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Stuttgart",
+
+                                                        },
+                                                        new SelectListItem {
+                                                           Text="Amsterdam",
+                                                        },
+
+                                     }, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="w-50 float-left">
+                            <div class="form-group" id="datetimepicker1">
+                                <label for="name" class="text-dark" style="font-family: 'Rubik', sans-serif;">Gidiş Tarihi</label>
+                                <input class="form-control" data-format="dd/MM/yyyy" type="date" id="example-date-input" name="GidisTarihi" value="2020-06-05">
+
+                            </div>
+                        </div>
+                        <div class="w-50 float-left pl-2">
+
+                            <div class="form-group" id="datetimepicker1">
+                                <label for="name" class="text-dark" style="font-family: 'Rubik', sans-serif;">Dönüş Tarihi</label>
+                                <input class="form-control" data-format="yyyy-MM-dd" type="date" id="donusTarihi" name="DonusTarihi" value="2020-06-06">
+                                <span class="add-on">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                    </i>
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="w-50 float-left">
+                            <label for="name" class="text-dark" style="font-family: 'Rubik', sans-serif;">Sınıf</label>
+                            <div class="form-control-sm" style="font-family: 'Rubik', sans-serif;">
+
+                                @Html.DropDownList("Sinif",
+                                     new List<SelectListItem> {
+                                                         new SelectListItem {
+                                                            Text="Ekonomi",
+                                                            Selected = true
+                                                            // Disabled = true  disable olarak gelsin istersek kullanıyoruz
+                                                         },
+                                                         new SelectListItem {
+                                                            Text="Business",
+                                                         },
+                                      }, new { @class = "form-control" })
+
+                            </div>
+                        </div>
+
+                        <div class="w-50 float-left pl-2">
+                            <label for="name">  </label>
+                            <div class="form-group" style="padding-left:13%; padding-top:2%;">
+                                <h><button class="btn btn-danger mr-md-8 btn-lg" type="submit" name="action"  style="font-family: 'Rubik', sans-serif;">Uçak Bileti Ara</button></h>
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="w-50 float-left row" style="padding-left:2%;">
+                            
+                            <div class="form-check form-check-inline" style="font-family: 'Rubik', sans-serif;">
+                                <input onclick="undisable()" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                <label class="form-check-label text-dark" for="exampleRadios1">
+                                    TEK YÖN
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input onclick="disable()" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked>
+                                <label class="form-check-label text-dark" for="exampleRadios2" style="font-family: 'Rubik', sans-serif;">
+                                    GİDİŞ-DÖNÜŞ
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    }
+    @using (Html.BeginForm("SonucEkrani", "Home", FormMethod.Post))
+    {
+        <div id="about" class="" style="padding-bottom: 50px; padding-top: 50px; font-family: 'Rubik', sans-serif;">
+            <div class="container">
+                <div class="container body-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1></h1>
+                            <h2 style="padding-left: 35%;">Popüler Uçak Seferleri</h2>
+                            <h1></h1>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Hava Yolu
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Nereden)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Nereye)
+                                        </th>
+                                        <th>
+                                            Gidiş Tarihi
+
+                                        </th>
+                                        <th>
+                                            Saat
+                                        </th>
+                                        <th>
+                                            Uçuş Süresi
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Fiyat)
+                                        </th>
+                                        <th></th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int i = 0;}
+                                    @foreach (var item in Model)
+                                    {
+                                        if (i < 10)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @if (item.HavaYolu == "THY")
+                                                    {
+                                                        <img src="~/img/thy2.jpg" alt="..." class="img-thumbnail float-left" style="width:100px; height:50px; border:none;">
+
+                                                    }
+                                                    @if (item.HavaYolu == "Pegasus")
+                                                    {
+                                                        <img src="~/img/pegasus.jpg" alt="..." class="img-thumbnail float-left" style="width:100px; height:50px; border:none;">
+
+                                                    }
+                                                    @if (item.HavaYolu == "SunExpress")
+                                                    {
+                                                        <img src="~/img/sun.png" alt="..." class="img-thumbnail float-left" style="width:100px; height:50px; border:none;">
+
+                                                    }
+
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Nereden)
+                                                </td>
+
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Nereye)
+                                                </td>
+                                                <td>
+                                                    @item.GidisTarihi.Substring(0, 10)
+                                                </td>
+                                                <td>
+                                                    @item.GidisTarihi.Remove(0, 10)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.UcusSuresi)
+                                                </td>
+                                                <td>
+                                                    <label class="btn btn-warning">@Html.DisplayFor(modelItem => item.Fiyat)</label>
+
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-danger" type="submit" name="HavaYolu" value="@item.HavaYolu,@item.Nereden,@item.Nereye,@item.GidisTarihi,@item.UcusSuresi,@item.Fiyat">Seç</button>
+
+                                                </td>
+
+                                            </tr>
+                                        }
+
+
+                                        i++;
+
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+    <script>
+        function disable() {
+            document.getElementById("donusTarihi").disabled = false;
+        }
+
+        function undisable() {
+            document.getElementById("donusTarihi").disabled = true;
+        }
+    </script>
+
+
+</body>
+</html>
+}

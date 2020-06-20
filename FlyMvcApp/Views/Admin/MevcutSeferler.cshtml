@@ -1,0 +1,144 @@
+﻿@using FlyMvcApp.Models;
+@model List<Sefer>
+@{
+    ViewBag.Title = "MevcutSeferler";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucak Bileti</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="https://kit.fontawesome.com/d7dd4d6052.js" crossorigin="anonymous"></script>
+
+</head>
+
+
+<body>
+
+    <div id="about" class="" style="padding-bottom: 50px; padding-top: 50px; font-family: 'Rubik', sans-serif;">
+        <div class="container">
+            <div class="container body-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 style="padding-left: 35%;">Tüm Seferler</h2>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Hava Yolu
+                                    </th>
+                                    <th>
+                                        Nereden
+                                    </th>
+                                    <th>
+                                        Nereye
+                                    </th>
+                                    <th>
+                                        Gidiş Tarihi ve Saat
+
+                                    </th>
+                                    <th>
+                                        Fiyat
+                                    </th>
+                                    <th>
+                                        Uçuş Süresi
+                                    </th>
+                                    <th>
+                                        Varış Saati
+                                    </th>
+                                    <th>
+                                        Business Yolcu Sayisi
+                                    </th>
+                                    <th>
+                                        Ekonomi Yolcu Sayisi
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            @if (item.HavaYolu == "THY")
+                                            {
+                                                <img src="~/img/thy2.jpg" alt="..." class="img-thumbnail float-left" style="width:100px; height:50px; border:none;">
+
+                                            }
+                                            @if (item.HavaYolu == "Pegasus")
+                                            {
+                                                <img src="~/img/pegasus.jpg" alt="..." class="img-thumbnail float-left" style="width:100px; height:50px; border:none;">
+
+                                            }
+                                            @if (item.HavaYolu == "SunExpress")
+                                            {
+                                                <img src="~/img/sun.png" alt="..." class="img-thumbnail float-left" style="width:100px; height:50px; border:none;">
+
+                                            }
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nereden)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nereye)
+                                        </td>
+                                        <td>
+                                            @item.GidisTarihi
+                                        </td>
+                                        <td>
+                                            @item.Fiyat
+                                        </td>
+                                        <td>
+                                            @item.UcusSuresi
+                                        </td>
+                                        <td>
+                                            @item.VarisSaati
+
+                                        </td>
+                                        <td>
+                                            @item.BusinessYolcuSayisi
+                                        </td>
+                                        <td>
+                                            @item.EcoYolcuSayisi
+                                        </td>
+
+                                        @using (Html.BeginForm("MevcutSeferler", "Admin", FormMethod.Post))
+                                        {
+                                            <td>
+                                                <button name="sil" type="submit" class="btn btn-danger" onclick="location.href='@Url.Action("SeferSil", "Admin")'" value="@item.HavaYolu,@item.Nereden,@item.Nereye,@item.GidisTarihi">Sil</button>
+
+                                            </td>
+                                        }
+                                    </tr>
+
+
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>

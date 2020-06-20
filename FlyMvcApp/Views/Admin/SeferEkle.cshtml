@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "SeferEkle";
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucak Bileti</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="https://kit.fontawesome.com/d7dd4d6052.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+
+<body>
+    
+    @using (Html.BeginForm("Seferler", "Admin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <div id="about" class="" style="padding-bottom: 50px; padding-top: 50px; font-family: 'Rubik', sans-serif;">
+            <div class="container">
+                <div class="container body-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-horizontal">
+
+                                <h2>Sefer Ekle</h2>
+
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-dark">Hava Yolu Şirketi</label>
+                                        <input name="HavaYolu" type="text" class="form-control" placeholder="Hava Yolu Şirketi" aria-label="Hava Yolu Şirketi" aria-describedby="basic-addon1" id="adText">
+                                    </div>
+                                    <br />
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-dark">Nereden</label>
+                                        <input name="Nereden" type="text" class="form-control" placeholder="Nereden" aria-label="Nereden" aria-describedby="basic-addon1" id="adText">
+                                    </div>
+                                    <br />
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-dark">Nereye</label>
+                                        <input name="Nereye" type="text" class="form-control" placeholder="Nereye" aria-label="Nereye" aria-describedby="basic-addon1" id="adText">
+                                    </div>
+                                    <br />
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-dark">Gidiş Tarihi</label>
+                                        <input name="GidisTarihi" type="text" class="form-control" placeholder="gg/aa/yyyy sa:dk" aria-label="Gidiş Tarihi" aria-describedby="basic-addon1" id="adText">
+                                    </div>
+                                    <br />
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-dark">Fiyat</label>
+                                        <input name="Fiyat" type="text" class="form-control" placeholder="Fiyat" aria-label="Fiyat" aria-describedby="basic-addon1" id="adText">
+                                    </div>
+                                    <br />
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-dark">Uçuş Süresi</label>
+                                        <input name="ucusSuresi" type="text" class="form-control" placeholder="Uçuş Süresi" aria-label="Uçuş Süresi" aria-describedby="basic-addon1" id="adText">
+                                    </div>
+                                    <br />
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-dark">Varış Saati</label>
+                                        <input name="varisSaati" type="text" class="form-control" placeholder="Varış Saati" aria-label="Varış Saati" aria-describedby="basic-addon1" id="adText">
+                                    </div>
+                                    <br />
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-dark">Bussiness Yolcu Sayısı</label>
+                                        <input name="busYolcu" type="text" class="form-control" placeholder="Bussiness Yolcu Sayısı" aria-label="Bussiness Yolcu Sayısı" aria-describedby="basic-addon1" id="adText">
+                                    </div>
+                                    <br />
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-dark">Eco Yolcu Sayısı</label>
+                                        <input name="ecoYolcu" type="text" class="form-control" placeholder="Eco Yolcu Sayısı" aria-label="Eco Yolcu Sayısı" aria-describedby="basic-addon1" id="adText">
+                                    </div>
+                                    <br />
+                                    <button type="submit" class="btn btn-info">Ekle</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

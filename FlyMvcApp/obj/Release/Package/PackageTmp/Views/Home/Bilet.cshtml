@@ -1,0 +1,412 @@
+﻿@model string[]
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uçak Bileti</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="https://kit.fontawesome.com/d7dd4d6052.js" crossorigin="anonymous"></script>
+
+</head>
+<body style="font-family: 'Rubik', sans-serif;">
+
+    <div>
+        @{ List<string> gidis = new List<string>();
+            List<string> donus = new List<string>();
+            List<string> kisi = new List<string>();
+            string HavaYoluDonus = "";
+            string NeredenDonus = "";
+            string NereyeDonus = "";
+            string Donustarihi = "";
+            string UcusSuresiDonus = "";
+            string FiyatDonus = "";
+            int i = 0;
+            int m = 0;
+            int yasInt = 0;
+            foreach (var item in Model)
+            {
+                m++;
+            }
+
+            foreach (var item in Model)
+            {
+                if (m > 20)
+                {
+                    if (i < 8)
+                    {
+                        gidis.Add(item);
+                    }
+                    if (6 < i && i < 14)
+                    {
+                        donus.Add(item);
+                    }
+                    if (i > 13)
+                    {
+                        kisi.Add(item);
+                    }
+                    i++;
+                }
+
+                if (m < 21)
+                {
+                    if (i < 8)
+                    {
+                        gidis.Add(item);
+                    }
+
+                    if (i > 7)
+                    {
+                        kisi.Add(item);
+                    }
+                    i++;
+                }
+            }
+        }
+        @{
+            string HavaYoluGidis = gidis[0];
+            string NeredenGidis = gidis[1];
+            string NereyeGidis = gidis[2];
+            string Gidistarihi = gidis[3];
+            string UcusSuresiGidis = gidis[4];
+            string FiyatGidis = gidis[5] + "," + gidis[6];
+            var FiyatG = double.Parse(FiyatGidis);
+
+            if (donus.Count > 0)
+            {
+                HavaYoluDonus = donus[0];
+                NeredenDonus = donus[1];
+                NereyeDonus = donus[2];
+                Donustarihi = donus[3];
+                UcusSuresiDonus = donus[4];
+                FiyatDonus = donus[5] + "," + donus[6];
+
+                if (HavaYoluDonus == "")
+                {
+                    string yas = kisi[3].Substring(0, 4);
+                    yasInt = Int32.Parse(yas);
+                }
+                if (HavaYoluDonus != "")
+                {
+                    string yas = kisi[4].Substring(0, 4);
+                    yasInt = Int32.Parse(yas);
+                }
+
+
+            }
+            if (donus.Count == 0)
+            {
+                if (kisi[3]=="")
+                {
+                    string yas = kisi[9].Substring(0, 4);
+                    yasInt = Int32.Parse(yas);
+                }
+                else
+                {
+                    string yas = kisi[3].Substring(0, 4);
+                    yasInt = Int32.Parse(yas);
+                }
+
+
+            }
+
+        }
+
+        <br />
+        <div class="card" style="margin-left:5%; margin-right:5%;" id="divYazdir">
+            <div class="row">
+                <div class="col">
+                    @if (HavaYoluGidis == "THY")
+                    {
+                        <img src="~/img/thy2.jpg" alt="..." class="img-thumbnail float-left" style="width:200px; height:140px; border:none; margin-left:2%; margin-top:2rem;">
+                    }
+                    @if (HavaYoluGidis == "Pegasus")
+                    {
+                        <img src="~/img/pegasus.jpg" alt="..." class="img-thumbnail float-left" style="width:200px; height:140px; border:none; margin-left:3%; margin-top:2rem;">
+                    }
+                    @if (HavaYoluGidis == "SunExpress")
+                    {
+                        <img src="~/img/sun.png" alt="..." class="img-thumbnail float-left" style="width:200px; height:140px; border:none; margin-left:3%; margin-top:2rem;">
+                    }
+                </div>
+                <div class="col float-md-right">
+                    <button class="btn btn-info" onclick="window.print()" style="margin-top:3rem; margin-left:82%;">Yazdır</button>
+                </div>
+            </div>
+
+
+            <div class="card" style="margin-left:3%; margin-right:3%; margin-top:1rem;">
+                <div class="card-body">
+                    <h4 class="font-weight-bold">Bilet Bilgileri</h4>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+
+                            <label>Bilet Tarihi</label>
+                            <h3 class="font-weight-bold"> @Gidistarihi</h3>
+                        </div>
+                        <div class="col">
+                            <label>Bilet Tutar</label>
+                            <h3 class="font-weight-bold"> @FiyatGidis TL</h3>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <br />
+            <div class="card" style="margin-left:3%; margin-right:3%; margin-top:1rem;">
+                <div class="card-body">
+                    <h4 class="font-weight-bold">Yolcu Bilgileri</h4>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <label>Ad Soyad</label>
+                            @if (HavaYoluDonus == "")
+                            {
+                                <h4 class="font-weight-bold">@kisi[0] @kisi[1]</h4>
+                            }
+                            else
+                            {
+                                <h4 class="font-weight-bold">@kisi[1] @kisi[2]</h4>
+                            }
+
+                        </div>
+                        <div class="col">
+                            <label>Cinsiyet</label>
+
+                            @{
+                                if (donus.Count == 0)
+                                {
+                                    <h4 class="font-weight-bold">@gidis[7]</h4>
+                                }
+                                if (HavaYoluDonus == "" && donus.Count != 0)
+                                {
+                                    <h4 class="font-weight-bold">@donus[6]</h4>
+                                }
+
+                                if(HavaYoluDonus!="")
+                                {
+                                    <h4 class="font-weight-bold">@kisi[0]</h4>
+                                }
+                            }
+                            
+
+                        </div>
+                        <div class="col">
+                            <label>Yolcu Tipi</label>
+                            @if (yasInt < 2000)
+                            {
+                                <h4 class="font-weight-bold"> Yetişkin</h4>
+                            }
+                            else
+                            {
+                                <h4 class="font-weight-bold"> Çocuk</h4>
+                            }
+
+                        </div>
+                        <div class="col">
+                            <label>Tc Kimlik Numarası</label>
+                            @if (HavaYoluDonus == "")
+                            {
+                                <h4 class="font-weight-bold"> @kisi[2]</h4>
+                            }
+                            else
+                            {
+                                <h4 class="font-weight-bold"> @kisi[3]</h4>
+                            }
+
+                        </div>
+                        <div class="col">
+                            <label>Telefon</label>
+                            @if (HavaYoluDonus == "")
+                            {
+                                <h4 class="font-weight-bold"> @kisi[5]</h4>
+                            }
+                            else
+                            {
+                                <h4 class="font-weight-bold"> @kisi[6]</h4>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <div class="card" style="margin-left:3%; margin-right:3%; margin-top:1rem; margin-bottom:1rem;">
+                <div class="card-body">
+                    <h4 class="font-weight-bold">Sefer Bilgileri</h4>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <label>Kalkış</label>
+                            <h4 class="font-weight-bold"> @NeredenGidis</h4>
+                        </div>
+                        <div class="col">
+                            <label>Uçuş Süresi</label>
+                            <h4 class="font-weight-bold"> @UcusSuresiGidis</h4>
+                        </div>
+                        <div class="col">
+                            <label>Varış</label>
+                            <h4 class="font-weight-bold"> @NereyeGidis</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+
+        @if (HavaYoluDonus != "")
+        {
+
+            <div class="card" style="margin-left:5%; margin-right:5%;" id="divYazdir">
+                @if (HavaYoluDonus == "THY")
+                {
+                    <img src="~/img/thy2.jpg" alt="..." class="img-thumbnail float-left" style="width:200px; height:140px; border:none; margin-left:2%; margin-top:2rem;">
+
+                }
+                @if (HavaYoluDonus == "Pegasus")
+                {
+                    <img src="~/img/pegasus.jpg" alt="..." class="img-thumbnail float-left" style="width:200px; height:140px; border:none; margin-left:3%; margin-top:2rem;">
+
+                }
+                @if (HavaYoluDonus == "SunExpress")
+                {
+                    <img src="~/img/sun.png" alt="..." class="img-thumbnail float-left" style="width:200px; height:140px; border:none; margin-left:3%; margin-top:2rem;">
+
+                }
+
+                <div class="card" style="margin-left:3%; margin-right:3%; margin-top:1rem;">
+                    <div class="card-body">
+
+                        <h4 class="font-weight-bold">Bilet Bilgileri</h4>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <label>Bilet Tarihi</label>
+                                <h3 class="font-weight-bold"> @Donustarihi</h3>
+                            </div>
+                            <div class="col">
+                                <label>Bilet Tutar</label>
+                                <h3 class="font-weight-bold"> @FiyatDonus TL</h3>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br />
+                <div class="card" style="margin-left:3%; margin-right:3%; margin-top:1rem;">
+                    <div class="card-body">
+                        <h4 class="font-weight-bold">Yolcu Bilgileri</h4>
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <label>Ad Soyad</label>
+                                @if (HavaYoluDonus == "")
+                                {
+                                    <h4 class="font-weight-bold">@kisi[0] @kisi[1]</h4>
+                                }
+                                else
+                                {
+                                    <h4 class="font-weight-bold">@kisi[1] @kisi[2]</h4>
+                                }
+                            </div>
+                            <div class="col">
+                                <label>Cinsiyet</label>
+                                @if (HavaYoluDonus == "")
+                                {
+                                    <h4 class="font-weight-bold">@donus[7]</h4>
+                                }
+                                else
+                                {
+                                    <h4 class="font-weight-bold">@kisi[0]</h4>
+                                }
+                                </div>
+                            <div class="col">
+                                <label>Yolcu Tipi</label>
+
+                                @if (yasInt < 2000)
+                                {
+                                    <h4 class="font-weight-bold"> Yetişkin</h4>
+                                }
+                                else
+                                {
+                                    <h4 class="font-weight-bold"> Çocuk</h4>
+                                }
+
+                            </div>
+                            <div class="col">
+                                <label>Tc Kimlik Numarası</label>
+                                @if (HavaYoluDonus == "")
+                                {
+                                    <h4 class="font-weight-bold"> @kisi[2]</h4>
+                                }
+                                else
+                                {
+                                    <h4 class="font-weight-bold"> @kisi[3]</h4>
+                                }
+
+                            </div>
+                            <div class="col">
+                                <label>Telefon</label>
+                                @if (HavaYoluDonus == "")
+                                {
+                                    <h4 class="font-weight-bold"> @kisi[5]</h4>
+                                }
+                                else
+                                {
+                                    <h4 class="font-weight-bold"> @kisi[6]</h4>
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br />
+                <div class="card" style="margin-left:3%; margin-right:3%; margin-top:1rem; margin-bottom:1rem;">
+                    <div class="card-body">
+                        <h4 class="font-weight-bold">Sefer Bilgileri</h4>
+
+                        <br />
+                        <div class="row">
+                            <div class="col">
+                                <label>Kalkış</label>
+                                <h4 class="font-weight-bold"> @NeredenDonus</h4>
+                            </div>
+                            <div class="col">
+                                <label>Uçuş Süresi</label>
+                                <h4 class="font-weight-bold"> @UcusSuresiDonus</h4>
+                            </div>
+                            <div class="col">
+                                <label>Varış</label>
+                                <h4 class="font-weight-bold"> @NereyeDonus</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        }
+
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>
